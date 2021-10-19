@@ -2,7 +2,7 @@
 *@author yezhenglin
 *@date 2021/10/15 16:13
 分类模型
- */
+*/
 
 package model
 
@@ -12,10 +12,10 @@ import (
 )
 
 type Category struct {
- 	gorm.Model
- 	Name string `gorm:"type:varchar(40);not null" json:"name"`
-
+	gorm.Model
+	Name string `gorm:"type:varchar(40);not null" json:"name"`
 }
+
 // CheckUser 查询分类是否存在
 func CheckCategory(name string) (code int) {
 	var cate Category
@@ -51,6 +51,7 @@ func GetCategory(pageSize int, pageNum int) []Category {
 // DeleteCategory 删除分类
 func DeleteCategory(id int) int {
 	var cate Category
+
 	err = db.Where("id=?", id).Delete(&cate).Error
 	if err != nil {
 		return errmsg.ERROR
@@ -65,9 +66,10 @@ func EditCategory(id int, data *Category) int {
 	maps["name"] = data.Name
 
 	err = db.Model(&cate).Where("id=?", id).Updates(maps).Error
-	if err != nil{
+	if err != nil {
 		return errmsg.ERROR
 	}
 	return errmsg.SUCCESS
 }
+
 //查询分类下所有文章

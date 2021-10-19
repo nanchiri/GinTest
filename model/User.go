@@ -71,7 +71,7 @@ func EditUser(id int, data *User) int {
 	maps["username"] = data.Username
 	maps["role"] = data.Role
 	err = db.Model(user).Where("id=?", id).Updates(maps).Error
-	if err != nil{
+	if err != nil {
 		return errmsg.ERROR
 	}
 	return errmsg.SUCCESS
@@ -93,6 +93,6 @@ func ScryptPassWord(password string) string {
 	if err != nil {
 		log.Fatal(err)
 	}
-	FinalPassWord := base64.StdEncoding.EncodeToString(HashPw)
-	return FinalPassWord
+
+	return base64.StdEncoding.EncodeToString(HashPw)
 }
