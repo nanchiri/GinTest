@@ -16,20 +16,24 @@ func InitRouter() {
 	r := gin.Default()
 	router := r.Group("api/v1")
 	{
+		//	用户模块路由接口
 		router.POST("user/add", v1.AddUser)
 		router.GET("users", v1.GetUsers)
 		router.DELETE("user/:id", v1.DeleteUser)
 		router.PUT("user/:id", v1.EditUser)
-		//	用户模块路由接口
+		//	分类模块的路由接口
 		router.POST("category/add", v1.AddCategory)
 		router.GET("category", v1.GetCategory)
 		router.DELETE("category/:id", v1.DeleteCategory)
 		router.PUT("category/:id", v1.EditCategory)
 
-		//	分类模块的路由接口
+		//文章模块的路由接口
 		router.DELETE("article/:id", v1.DeleteArticle)
 		router.PUT("article/:id", v1.UpdateArticle)
 		router.POST("article/add", v1.AddArticle)
+		router.GET("article/list/:id", v1.GetCategoryAllArticle)
+		router.GET("article", v1.GetArticle)
+		router.GET("article/:id", v1.GetSingeArticle)
 		//
 	}
 

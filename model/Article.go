@@ -12,7 +12,7 @@ import (
 
 type Article struct {
 	gorm.Model
-	Category Category //关联分类
+	Category Category `gorm:"foreignkey:Cid"` //关联分类 父类
 	Title    string   `gorm:"type:varchar(100);notnull" json:"title"`
 	Cid      int      `gorm:"type:int;not null" json:"cid"`  //分类id
 	Desc     string   `gorm:"type:varchar(200)" json:"desc"` //描述
@@ -31,10 +31,34 @@ func CreateArticle(data *Article) int {
 }
 
 //查询分类下所有文章
+func GetCategoryAllArticle(pageSize int, pageNum int, id int) ([]Article, int) {
+	var cateArticleList []Article
+	err := db.Preload("Category").Limit(pageSize).Offset((pageNum-1)*pageSize).Where("cid=?", id).Find(&cateArticleList).Error
+	if err != nil {
+		return nil, errmsg.ERROR_CATE_NOT_EXIST
+	}
+	return cateArticleList, errmsg.SUCCESS
+}
 
 //查询单个文章
+func GetSingeArticle(id int) (Article, int) {
+	var article Article
+	err := db.Preload("Category").Where("id =?", id).First(&article).Error
+	if err != nil {
+		return article, errmsg.ERROR_ARTICLE_NOT_AXIST
+	}
+	return article, errmsg.SUCCESS
+}
 
 //查询文章列表
+func GetArticle(pageSize int, pageNum int) ([]Article, int) {
+	var articlelist []Article
+	err = db.Preload("Category").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&articlelist).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, errmsg.ERROR
+	}
+	return articlelist, errmsg.SUCCESS
+}
 
 //编辑文章
 func EditArticle(id int, data *Article) int {

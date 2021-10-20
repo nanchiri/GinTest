@@ -14,6 +14,7 @@ import (
 var (
 	AppMode  string
 	HttpPort string
+	JwtKey   string
 
 	Db         string
 	DbHost     string
@@ -36,6 +37,7 @@ func LoadServer(file *ini.File) {
 	//取不到值就用默认值
 	AppMode = file.Section("Server").Key("AppMode").MustString("debug")
 	HttpPort = file.Section("Server").Key("HttpPort").MustString(":3000")
+	JwtKey = file.Section("Server").Key("jwtKey").MustString("89js82js72")
 }
 func LoadData(file *ini.File) {
 	Db = file.Section("Database").Key("Db").MustString("mysql")
