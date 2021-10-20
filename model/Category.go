@@ -20,7 +20,7 @@ type Category struct {
 func CheckCategory(name string) (code int) {
 	var cate Category
 	//First查询第一个参数
-	db.Select("id").Where("username = ?", name).First(&cate)
+	db.Select("id").Where("name = ?", name).First(&cate)
 	if cate.ID > 0 {
 		return errmsg.ERROR_CATENAME_USED
 	}

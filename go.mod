@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	gitee.com/cuckoopark/wechat v0.2.0 // indirect
+	github.com/clod-moon/goconf v0.0.0-20191014062510-03cddbcd7da9 // indirect
 	github.com/gin-gonic/gin v1.7.4
 	github.com/go-playground/validator/v10 v10.9.0 // indirect
 	github.com/go-sql-driver/mysql v1.6.0

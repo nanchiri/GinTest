@@ -27,7 +27,9 @@ func InitRouter() {
 		router.PUT("category/:id", v1.EditCategory)
 
 		//	分类模块的路由接口
-
+		router.DELETE("article/:id", v1.DeleteArticle)
+		router.PUT("article/:id", v1.UpdateArticle)
+		router.POST("article/add", v1.AddArticle)
 		//
 	}
 
